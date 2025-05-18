@@ -4,18 +4,25 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id(); // Primary Key (Auto Increment)
-            $table->string('username')->unique(); // Username harus unik
-            $table->string('email')->unique(); // Email harus unik
-            $table->string('password'); // Menyimpan password yang sudah di-hash
-            $table->timestamps(); // Kolom created_at & updated_at otomatis
+            $table->id();
+            $table->string('username')->unique();
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down()
     {
         Schema::dropIfExists('users');

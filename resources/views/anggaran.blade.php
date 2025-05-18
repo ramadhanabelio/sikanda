@@ -351,10 +351,8 @@
 
                                     @foreach ($subSubGrouped as $subSubJudul => $bySubSubJudul)
                                         @php
-                                            // Calculate total for sub_sub_judul
                                             $totalSubSubJudulAnggaran = $bySubSubJudul->sum('jumlah_anggaran');
                                             $totalSubSubJudulSisaAnggaran = $bySubSubJudul->sum('sisa_anggaran');
-                                            // Calculate bobot for sub_sub_judul
                                             $bobotSubSubJudul =
                                                 $totalBudget > 0 ? ($totalSubSubJudulAnggaran / $totalBudget) * 100 : 0;
                                         @endphp
@@ -432,7 +430,6 @@
                             @endforeach
 
                             @php
-                                // Calculate grand totals
                                 $grandTotalAnggaran = $anggarans->sum('jumlah_anggaran');
                                 $grandTotalSisaAnggaran = $anggarans->sum('sisa_anggaran');
                             @endphp
