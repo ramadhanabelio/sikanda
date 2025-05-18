@@ -1,0 +1,48 @@
+.nav-link.active {
+    background-color: #f0f0f0; /* Warna latar untuk menu aktif */
+    color: #5e72e4; /* Warna teks untuk menu aktif */
+    font-weight: bold;
+  }
+  
+  .nav-link.active .icon i {
+    color: #5e72e4; /* Warna ikon saat menu aktif */
+  }
+  
+/* style.css */
+
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    padding: 10px 15px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    color: #007bff;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-link:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: #f8f9fa;
+}

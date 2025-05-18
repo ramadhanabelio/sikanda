@@ -1,0 +1,119 @@
+
+    /* Memastikan tabel dapat di-scroll secara horizontal */
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Mengatur warna background header seperti pada gambar */
+    .anggaran-table thead th {
+        background-color: #252a2f;
+        color: white;
+        vertical-align: middle;
+        text-align: center;
+        padding: 15px 10px;
+    }
+    
+    /* Mengatur lebar kolom secara default */
+    .anggaran-table th.no-col,
+    .anggaran-table td.no-col {
+        width: 50px;
+        min-width: 50px;
+    }
+    
+    .anggaran-table th.tanggal-col,
+    .anggaran-table td.tanggal-col {
+        width: 100px;
+        min-width: 100px;
+    }
+    
+    .anggaran-table th.uraian-col,
+    .anggaran-table td.uraian-col {
+        width: auto;
+        min-width: 250px;
+    }
+    
+    .anggaran-table th.satuan-col,
+    .anggaran-table td.satuan-col {
+        width: 80px;
+        min-width: 80px;
+    }
+    
+    .anggaran-table th.harga-col,
+    .anggaran-table td.harga-col {
+        width: 120px;
+        min-width: 120px;
+    }
+    
+    .anggaran-table th.volume-col,
+    .anggaran-table td.volume-col {
+        width: 80px;
+        min-width: 80px;
+    }
+    
+    .anggaran-table th.jumlah-col,
+    .anggaran-table td.jumlah-col {
+        width: 120px;
+        min-width: 120px;
+    }
+    
+    .anggaran-table th.bobot-col,
+    .anggaran-table td.bobot-col {
+        width: 70px;
+        min-width: 70px;
+    }
+    
+    .anggaran-table th.aksi-col,
+    .anggaran-table td.aksi-col {
+        width: 130px;
+        min-width: 130px;
+    }
+    
+    /* Membuat baris judul terlihat lebih menonjol */
+    .row-header {
+        background-color: #f8f9fa;
+        font-weight: bold;
+    }
+    
+    /* Indentasi untuk hierarki */
+    .indent-1 { padding-left: 1.5rem !important; }
+    .indent-2 { padding-left: 3rem !important; }
+    .indent-3 { padding-left: 4.5rem !important; }
+    
+    /* Style untuk border dan hover */
+    .anggaran-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    .anggaran-table th,
+    .anggaran-table td {
+        border: 1px solid #dee2e6;
+        padding: 8px;
+    }
+    
+    .anggaran-table tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Tambahkan gradient untuk scrolling indicator */
+    .table-wrapper::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 15px;
+        height: 100%;
+        background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.3));
+        pointer-events: none;
+        display: none;
+    }
+    
+    /* Tampilkan indicator scrolling saat tabel terlalu lebar */
+    @media (max-width: 992px) {
+        .table-wrapper.scrollable::after {
+            display: block;
+        }
+    }
+
