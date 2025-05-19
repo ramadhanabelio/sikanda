@@ -102,15 +102,14 @@
                     {{-- Jumlah --}}
                     <div class="form-group mb-3">
                         <label for="jumlah_anggaran">Jumlah Anggaran</label>
-                        <input type="number" step="0.01" class="form-control" id="jumlah_anggaran"
-                            name="jumlah_anggaran" required>
+                        <input type="number" class="form-control" id="jumlah_anggaran" readonly>
                     </div>
 
                     {{-- Bobot --}}
-                    <div class="form-group mb-3">
+                    {{-- <div class="form-group mb-3">
                         <label for="bobot">Bobot (%)</label>
                         <input type="number" step="0.01" class="form-control" id="bobot" name="bobot">
-                    </div>
+                    </div> --}}
 
                     {{-- Rencana Realisasi --}}
                     <div class="form-group mb-3">
@@ -285,7 +284,6 @@
                             @php
                                 $no = 1;
                                 $grouped = $anggarans->groupBy('judul');
-                                // Calculate total budget for the entire dataset
                                 $totalBudget = $anggarans->sum('jumlah_anggaran');
 
                                 function alphabetIndex($i)
@@ -296,10 +294,8 @@
 
                             @foreach ($grouped as $judul => $byJudul)
                                 @php
-                                    // Calculate total jumlah_anggaran for current judul
                                     $totalJudulAnggaran = $byJudul->sum('jumlah_anggaran');
                                     $totalJudulSisaAnggaran = $byJudul->sum('sisa_anggaran');
-                                    // Calculate bobot for judul
                                     $bobotJudul = $totalBudget > 0 ? ($totalJudulAnggaran / $totalBudget) * 100 : 0;
                                 @endphp
 
@@ -322,10 +318,8 @@
 
                                 @foreach ($subGrouped as $subJudul => $bySubJudul)
                                     @php
-                                        // Calculate total jumlah_anggaran for current sub_judul
                                         $totalSubJudulAnggaran = $bySubJudul->sum('jumlah_anggaran');
                                         $totalSubJudulSisaAnggaran = $bySubJudul->sum('sisa_anggaran');
-                                        // Calculate bobot for sub_judul
                                         $bobotSubJudul =
                                             $totalBudget > 0 ? ($totalSubJudulAnggaran / $totalBudget) * 100 : 0;
                                     @endphp
@@ -434,11 +428,11 @@
                                 $grandTotalSisaAnggaran = $anggarans->sum('sisa_anggaran');
                             @endphp
                             <tr style="background-color: #343a40; font-weight: bold;">
-                                <td colspan="8" class="text-white text-center">TOTAL KESELURUHAN</td>
-                                <td class="text-white text-end">{{ number_format($grandTotalAnggaran, 0, ',', '.') }}</td>
-                                <td class="text-white text-center">100.00%</td>
-                                <td colspan="11" class="text-white"></td>
-                                <td class="text-white text-end">{{ number_format($grandTotalSisaAnggaran, 0, ',', '.') }}
+                                <td colspan="8" class="text-dark text-center">TOTAL KESELURUHAN</td>
+                                <td class="text-dark text-end">{{ number_format($grandTotalAnggaran, 0, ',', '.') }}</td>
+                                <td class="text-dark text-center">100.00%</td>
+                                <td colspan="11" class="text-dark"></td>
+                                <td class="text-dark text-end">{{ number_format($grandTotalSisaAnggaran, 0, ',', '.') }}
                                 </td>
                                 <td class="text-white"></td>
                             </tr>
@@ -506,133 +500,22 @@
                     });
                 });
             </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const volumeInput = document.getElementById('volume');
+                    const hargaInput = document.getElementById('harga');
+                    const jumlahInput = document.getElementById('jumlah_anggaran');
+
+                    function updateJumlah() {
+                        const volume = parseFloat(volumeInput.value) || 0;
+                        const harga = parseFloat(hargaInput.value) || 0;
+                        const jumlah = volume * harga;
+                        jumlahInput.value = jumlah.toFixed(2);
+                    }
+
+                    volumeInput.addEventListener('input', updateJumlah);
+                    hargaInput.addEventListener('input', updateJumlah);
+                });
+            </script>
         @endsection
-
-        <style>
-            .table-wrapper {
-                width: 100%;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .anggaran-table thead th {
-                background-color:
-                    color: white;
-                vertical-align: middle;
-                text-align: center;
-                padding: 15px 10px;
-            }
-
-            .anggaran-table th.no-col,
-            .anggaran-table td.no-col {
-                width: 50px;
-                min-width: 50px;
-            }
-
-            .anggaran-table th.tanggal-col,
-            .anggaran-table td.tanggal-col {
-                width: 100px;
-                min-width: 100px;
-            }
-
-            .anggaran-table th.uraian-col,
-            .anggaran-table td.uraian-col {
-                width: auto;
-                min-width: 250px;
-            }
-
-            .anggaran-table th.satuan-col,
-            .anggaran-table td.satuan-col {
-                width: 80px;
-                min-width: 80px;
-            }
-
-            .anggaran-table th.harga-col,
-            .anggaran-table td.harga-col {
-                width: 120px;
-                min-width: 120px;
-            }
-
-            .anggaran-table th.volume-col,
-            .anggaran-table td.volume-col {
-                width: 80px;
-                min-width: 80px;
-            }
-
-            .anggaran-table th.jumlah-col,
-            .anggaran-table td.jumlah-col {
-                width: 120px;
-                min-width: 120px;
-            }
-
-            .anggaran-table th.bobot-col,
-            .anggaran-table td.bobot-col {
-                width: 70px;
-                min-width: 70px;
-            }
-
-            .anggaran-table th.aksi-col,
-            .anggaran-table td.aksi-col {
-                width: 130px;
-                min-width: 130px;
-            }
-
-            .row-header {
-                background-color:
-                    font-weight: bold;
-            }
-
-            .indent-1 {
-                padding-left: 1.5rem !important;
-            }
-
-            .indent-2 {
-                padding-left: 3rem !important;
-            }
-
-            .indent-3 {
-                padding-left: 4.5rem !important;
-            }
-
-            .anggaran-table {
-                border-collapse: collapse;
-                width: 100%;
-            }
-
-            .anggaran-table th,
-            .anggaran-table td {
-                border: 1px solid padding: 8px;
-            }
-
-            .anggaran-table tbody tr:hover {
-                background-color: rgba(0, 0, 0, 0.05);
-            }
-
-            .table-wrapper::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 15px;
-                height: 100%;
-                background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
-                pointer-events: none;
-                display: none;
-            }
-
-            @media (max-width: 992px) {
-                .table-wrapper.scrollable::after {
-                    display: block;
-                }
-            }
-
-            .bg-purple {
-                background-color: #6f42c1 !important;
-                color: white;
-            }
-
-            .bg-gold {
-                background-color: #dcd080 !important;
-                color: white;
-            }
-        </style>

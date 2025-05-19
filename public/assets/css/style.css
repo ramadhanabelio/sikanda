@@ -5,7 +5,7 @@
 }
 
 .anggaran-table thead th {
-    background-color: #252a2f;
+    background-color:
     color: white;
     vertical-align: middle;
     text-align: center;
@@ -67,16 +67,18 @@
 }
 
 .row-header {
-    background-color: #f8f9fa;
+    background-color:
     font-weight: bold;
 }
 
 .indent-1 {
     padding-left: 1.5rem !important;
 }
+
 .indent-2 {
     padding-left: 3rem !important;
 }
+
 .indent-3 {
     padding-left: 4.5rem !important;
 }
@@ -88,8 +90,7 @@
 
 .anggaran-table th,
 .anggaran-table td {
-    border: 1px solid #dee2e6;
-    padding: 8px;
+    border: 1px solid padding: 8px;
 }
 
 .anggaran-table tbody tr:hover {
@@ -97,17 +98,13 @@
 }
 
 .table-wrapper::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     right: 0;
     width: 15px;
     height: 100%;
-    background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 0.3)
-    );
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
     pointer-events: none;
     display: none;
 }
@@ -116,4 +113,14 @@
     .table-wrapper.scrollable::after {
         display: block;
     }
+}
+
+.bg-purple {
+    background-color: #6f42c1 !important;
+    color: white;
+}
+
+.bg-gold {
+    background-color: #dcd080 !important;
+    color: white;
 }

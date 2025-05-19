@@ -81,7 +81,7 @@
             {{-- Volume --}}
             <div class="mb-3">
                 <label for="volume" class="form-label">Volume</label>
-                <input type="number" step="0.01" name="volume" class="form-control"
+                <input type="number" step="0.01" name="volume" id="volume" class="form-control"
                     value="{{ old('volume', $anggaran->volume) }}" required>
             </div>
 
@@ -104,23 +104,23 @@
             {{-- Harga --}}
             <div class="mb-3">
                 <label for="harga" class="form-label">Harga Satuan</label>
-                <input type="number" step="0.01" name="harga" class="form-control"
+                <input type="number" step="0.01" name="harga" id="harga" class="form-control"
                     value="{{ old('harga', $anggaran->harga) }}" required>
             </div>
 
             {{-- Jumlah Anggaran --}}
             <div class="mb-3">
                 <label for="jumlah_anggaran" class="form-label">Jumlah Anggaran</label>
-                <input type="number" step="0.01" name="jumlah_anggaran" class="form-control"
-                    value="{{ old('jumlah_anggaran', $anggaran->jumlah_anggaran) }}" required>
+                <input type="number" step="0.01" name="jumlah_anggaran" id="jumlah_anggaran" class="form-control"
+                    value="{{ old('jumlah_anggaran', $anggaran->jumlah_anggaran) }}" readonly>
             </div>
 
             {{-- Bobot --}}
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label for="bobot" class="form-label">Bobot (%)</label>
                 <input type="number" step="0.01" name="bobot" class="form-control"
                     value="{{ old('bobot', $anggaran->bobot) }}">
-            </div>
+            </div> --}}
 
             {{-- Rencana Realisasi --}}
             <div class="mb-3">
@@ -203,4 +203,18 @@
             <a href="{{ route('anggaran.index') }}" class="btn btn-secondary">Kembali</a>
         </form>
     </div>
+
+    <script>
+        function updateJumlahAnggaran() {
+            const volume = parseFloat(document.getElementById('volume').value) || 0;
+            const harga = parseFloat(document.getElementById('harga').value) || 0;
+            const jumlah = volume * harga;
+            document.getElementById('jumlah_anggaran').value = jumlah.toFixed(2);
+        }
+
+        document.getElementById('volume').addEventListener('input', updateJumlahAnggaran);
+        document.getElementById('harga').addEventListener('input', updateJumlahAnggaran);
+
+        window.addEventListener('DOMContentLoaded', updateJumlahAnggaran);
+    </script>
 @endsection

@@ -54,6 +54,9 @@ class AnggaranController extends Controller
     {
         $jumlah_anggaran = $request->volume * $request->harga;
 
+        $totalBudget = Anggaran::sum('jumlah_anggaran');
+        $bobot = $totalBudget > 0 ? ($jumlah_anggaran / $totalBudget) * 100 : 0;
+
         $anggaran = new Anggaran();
         $anggaran->tanggal_anggaran = $request->tanggal_anggaran;
         $anggaran->judul = $request->judul_baru ?: $request->judul;
@@ -64,8 +67,8 @@ class AnggaranController extends Controller
         $anggaran->satuan = $request->satuan_baru ?: $request->satuan;
         $anggaran->harga = $request->harga;
         $anggaran->jumlah_anggaran = $jumlah_anggaran;
+        $anggaran->bobot = $bobot;
 
-        $anggaran->bobot = $request->bobot;
         $anggaran->volume_nominal_rr = $request->volume_nominal_rr;
         $anggaran->satuan_rr = $request->satuan_rr;
         $anggaran->fisik_rr = $request->fisik_rr;
@@ -101,6 +104,8 @@ class AnggaranController extends Controller
     {
         $anggaran = Anggaran::findOrFail($id);
         $jumlah_anggaran = $request->volume * $request->harga;
+        $totalBudget = Anggaran::where('id', '!=', $id)->sum('jumlah_anggaran') + $jumlah_anggaran;
+        $bobot = $totalBudget > 0 ? ($jumlah_anggaran / $totalBudget) * 100 : 0;
 
         $anggaran->tanggal_anggaran = $request->tanggal_anggaran;
         $anggaran->judul = $request->judul_baru ?: $request->judul;
@@ -111,8 +116,8 @@ class AnggaranController extends Controller
         $anggaran->satuan = $request->satuan_baru ?: $request->satuan;
         $anggaran->harga = $request->harga;
         $anggaran->jumlah_anggaran = $jumlah_anggaran;
+        $anggaran->bobot = $bobot;
 
-        $anggaran->bobot = $request->bobot;
         $anggaran->volume_nominal_rr = $request->volume_nominal_rr;
         $anggaran->satuan_rr = $request->satuan_rr;
         $anggaran->fisik_rr = $request->fisik_rr;
