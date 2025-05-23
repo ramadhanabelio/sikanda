@@ -48,3 +48,5 @@
 
 <!-- Kaiadmin JS -->
 <script src="{{ asset('assets/js/kaiadmin.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/main.js') }}"></script>
